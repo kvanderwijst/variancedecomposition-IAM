@@ -10,5 +10,9 @@ Using Sobol's Monte Carlo method, we calculate the contribution to the variance 
 
 ## Usage
 To calculate the partial variances of the carbon budget only, run Carbon budget calculation.py
+
 To calculate the partial variances of the full model, run Mitigation cost calculation.py
+
+
+The underlying distributions can be edited in variancedecomposition/distributions.py, specifically in the distributionCosts variable. If the model functions need to be changed, the variancedecomposition/model.py is the place to go. This also contained the exponential functions used to model mitigation costs.
 
