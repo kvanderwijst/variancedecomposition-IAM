@@ -49,7 +49,7 @@ def sample_normal(num, mu, sigma):
 
 
 ######## Distribution for full mitigation cost model
-
+pStar = 0.24154
 distributionsCosts = [
     lambda N: sample_betaPERT(N, 0.255, 0.62, 0.855), # TCRE
     lambda N: sample_normal(N, 0.909, 0.15/2), # T2010

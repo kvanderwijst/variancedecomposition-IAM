@@ -38,10 +38,16 @@ def createSampleMatrices (N, T, distributions, model, secondOrder, thirdOrder):
         D[i][:,secondOrder[i][1]] = A[:,secondOrder[i][1]];
     
     # And a third order matrix
-    E = np.copy(B)
-    E[:,thirdOrder[0]] = A[:,thirdOrder[0]];
-    E[:,thirdOrder[1]] = A[:,thirdOrder[1]];
-    E[:,thirdOrder[2]] = A[:,thirdOrder[2]];
+    if thirdOrder is not False:
+        E = np.copy(B)
+        E[:,thirdOrder[0]] = A[:,thirdOrder[0]];
+        E[:,thirdOrder[1]] = A[:,thirdOrder[1]];
+        E[:,thirdOrder[2]] = A[:,thirdOrder[2]];
+
+        yE = model(T, E)
+    else:
+        E = []
+        yE = np.array([0])
     
     yA = model(T, A)
     yB = model(T, B)
@@ -49,7 +55,6 @@ def createSampleMatrices (N, T, distributions, model, secondOrder, thirdOrder):
     yC = [model(T, C[i]) for i in range(k)]
     
     yD = [model(T, D[i]) for i in range(len(secondOrder))]
-    yE = model(T, E)
     
     del(A, B, C, D, E)
     
@@ -104,17 +109,9 @@ def testSensitivity (N, T, distributions, model, secondOrderIndices, thirdOrderI
     # Also calculate the third order term if necessary
     if thirdOrderIndices is not False:
         thirdOrders = [nthOrderEstimators(yA, yB, yE) - np.sum(secondOrders) - firstOrders[0] - firstOrders[1] - firstOrders[2]]
-    else thirdOrders = []
+    else:
+        thirdOrders = []
 
     del(yA, yB, yC, yD, yE)
-    return (firstOrders, secondOrders, thirdOrders)
+    return [firstOrders, secondOrders, thirdOrders]
 
-
-
-
-######## Calculate sensitivity in parallel
-
-def parallelTask(T):
-    numSamplesPerRun = 1000000
-    numIdenticalRuns = 50 # Repeat the same calculation for increased accuracy
-    return [testSensitivity(numSamplesPerRun, T, distributions, model) for i in range(numIdenticalRuns)]

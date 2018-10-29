@@ -7,6 +7,8 @@
 ##
 ###################
 
+import numpy as np
+
 
 
 ####### Define individual components
