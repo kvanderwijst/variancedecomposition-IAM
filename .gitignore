@@ -1,3 +1,28 @@
 .ipynb
 .svg
 .png
+*.ipynb
+*.png
+*.svg
+*.npy
+*.pdf
+Parameter estimations/Costs.csv
+Parameter estimations/costsAFOcumCO2.dat
+Parameter estimations/CostsJoined.csv
+Parameter estimations/CostsSplitted.json
+Parameter estimations/exponentialcurvehigh.csv
+Parameter estimations/exponentialcurvelow.csv
+Parameter estimations/Non-CO2 variance.nb
+Parameter estimations/p.nb
+Parameter estimations/T2010 from T2016.nb
+Parameter estimations/T2010.nb
+Parameter estimations/TasFctOfForcing.csv
+Parameter estimations/TCRE and T1870.nb
+Parameter estimations/TempChangeFromCO2.csv
+Parameter estimations/TempChangeFromNonCO2.csv
+*.pyc
+ConvexNonCO2/variancedecomposition-IAM/
+forVisualisation.csv
+*.html
+*.nb
+*.json
