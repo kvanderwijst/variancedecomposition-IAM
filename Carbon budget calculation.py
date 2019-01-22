@@ -12,6 +12,11 @@ import variancedecomposition.model as model
 import variancedecomposition.plot as plot
 import multiprocessing
 
+import plotly.offline as pyo
+import plotly.plotly as py
+import plotly.graph_objs as go
+import plotly.tools as pyt
+
 
 ##################
 ##
@@ -23,7 +28,7 @@ import multiprocessing
 ## Create task to be run in parallel
 def parallelTask(T):
     numSamplesPerRun = 1000000
-    numIdenticalRuns = 5 # Repeat the same calculation for increased accuracy
+    numIdenticalRuns = 50 # Repeat the same calculation for increased accuracy
     return [
         sobol.testSensitivity(
             numSamplesPerRun,
@@ -37,7 +42,7 @@ def parallelTask(T):
 
 
 ## Define temperature values for which we want to calculate the carbon budget sensitivity
-Tvalues = np.linspace(1.0, 4, 8)
+Tvalues = np.linspace(1.0, 5, 50)
 
 
 ## Calculate the sensitivity for each temperature, in parallel
@@ -50,6 +55,10 @@ pool.join()
 ## Process the results such that they are better readable
 processed = plot.processResults(result)
 
+# processed[0] bevat first-order relative variance voor elke parameter (kolom)
+# en voor elke temperatuur (rij)
+
+# processed[1] bevat tweede orde termen
 
 
 

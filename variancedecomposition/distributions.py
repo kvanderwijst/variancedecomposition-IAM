@@ -8,6 +8,7 @@
 
 import numpy as np
 import scipy.stats as stats
+import variancedecomposition.model as model
 
 
 ######## Define the sampling functions
@@ -56,6 +57,7 @@ distributionsCosts = [
     lambda N: sample_normal(N, 0, .135),  # sigma_nonCO2
     lambda N: sample_betaPERT(N, 0, pStar, 1)   # p
 ]
+distributionsMode = [0.62, 1, 0, pStar]
 
 ######## Distribution for carbon budget model
 
