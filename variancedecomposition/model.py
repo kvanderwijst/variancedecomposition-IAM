@@ -40,7 +40,7 @@ if model in [0, 1]:
 elif model in [2, 4]:
 # TCRE from gray plume or from Collins + linear non-CO2
 
-    TCRE_nonCO2 = -1 # TBD
+    TCRE_nonCO2 = 0.17
     
     def CO2asfunctionofTemperature (T, TCRE, T0, sigma_nonCO2):
         return (T - T0 - sigma_nonCO2) / (TCRE_CO2 + TCRE_nonCO2)
