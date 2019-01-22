@@ -42,7 +42,7 @@ elif modelNum in [2, 4]:
 
     TCRE_nonCO2 = 0.17
     
-    def CO2asfunctionofTemperature (T, TCRE, T0, sigma_nonCO2):
+    def CO2asfunctionofTemperature (T, TCRE_CO2, T0, sigma_nonCO2):
         return (T - T0 - sigma_nonCO2) / np.maximum(0.001, TCRE_CO2 + TCRE_nonCO2)
     
     def TemperatureasfunctionofCO2 (CO2, TCRE_CO2, T0, sigma_nonCO2):
