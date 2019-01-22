@@ -51,13 +51,57 @@ def sample_normal(num, mu, sigma):
 
 ######## Distribution for full mitigation cost model
 pStar = 0.24154
-distributionsCosts = [
-    lambda N: sample_betaPERT(N, 0.255, 0.62, 0.855), # TCRE
-    lambda N: sample_normal(N, 0.909, 0.15/2), # T2010
-    lambda N: sample_normal(N, 0, .135),  # sigma_nonCO2
-    lambda N: sample_betaPERT(N, 0, pStar, 1)   # p
-]
-distributionsMode = [0.62, 1, 0, pStar]
+
+if model is 0:
+# TCRE from pink plume, symmetrical distribution (Gaussian)
+
+    distributionsCosts = [
+        lambda N: sample_normal(N, 0.62, 0.12), # TCRE
+        lambda N: sample_normal(N, 0.909, 0.15/2), # T2010
+        lambda N: sample_normal(N, 0, .135),  # sigma_nonCO2
+        lambda N: sample_betaPERT(N, 0, pStar, 1)   # p
+    ]
+
+elif model is 1:
+# TCRE from pink plume, asymmetrical distribution (beta-PERT)
+
+    distributionsCosts = [
+        lambda N: sample_betaPERT(N, 0.255, 0.62, 0.855), # TCRE
+        lambda N: sample_normal(N, 0.909, 0.15/2), # T2010
+        lambda N: sample_normal(N, 0, .135),  # sigma_nonCO2
+        lambda N: sample_betaPERT(N, 0, pStar, 1)   # p
+    ]
+
+elif model is 2:
+# TCRE from gray plume , linear non-CO2
+
+    distributionsCosts = [
+        lambda N: sample_normal(N, 0.45, 0.1), # TCRE
+        lambda N: sample_normal(N, 0.909, 0.15/2), # T2010
+        lambda N: sample_normal(N, 0, .135),  # sigma_nonCO2
+        lambda N: sample_betaPERT(N, 0, pStar, 1)   # p
+    ]
+
+elif model is 3:
+# TCRE from gray plume , convex non-CO2
+
+    distributionsCosts = [
+        lambda N: sample_normal(N, 0.45, 0.1), # TCRE
+        lambda N: sample_normal(N, 0.909, 0.15/2), # T2010
+        lambda N: sample_normal(N, 0, .227),  # sigma_nonCO2
+        lambda N: sample_betaPERT(N, 0, pStar, 1)   # p
+    ]
+
+elif model is 4:
+# TCRE from Collins et al (2013) , linear non-CO2
+
+    distributionsCosts = [
+        lambda N: sample_normal(N, 0.45, 0.25), # TCRE
+        lambda N: sample_normal(N, 0.909, 0.15/2), # T2010
+        lambda N: sample_normal(N, 0, .135),  # sigma_nonCO2
+        lambda N: sample_betaPERT(N, 0, pStar, 1)   # p
+    ]
+
 
 ######## Distribution for carbon budget model
 
