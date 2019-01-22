@@ -62,7 +62,7 @@ def update(outp):
     result[i] = output
     pbar.update();
 
-pool = multiprocessing.Pool()
+pool = multiprocessing.Pool(25)
 for i in range(len(Tvalues)):
     pool.apply_async(parallelTask, (i,), callback=update)
 pool.close()  
