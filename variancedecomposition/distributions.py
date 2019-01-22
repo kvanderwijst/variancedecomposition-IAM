@@ -8,7 +8,7 @@
 
 import numpy as np
 import scipy.stats as stats
-import variancedecomposition.model as model
+from variancedecomposition.model import modelNum
 
 
 ######## Define the sampling functions
@@ -53,7 +53,7 @@ def sample_normal(num, mu, sigma):
 pStar = 0.24154
 distribution_p = lambda N: sample_betaPERT(N, 0, pStar, 1)
 
-if model is 0:
+if modelNum is 0:
 # TCRE from pink plume, symmetrical distribution (Gaussian)
 
     distributionsCosts = [
@@ -63,7 +63,7 @@ if model is 0:
         distribution_p   # p
     ]
 
-elif model is 1:
+elif modelNum is 1:
 # TCRE from pink plume, asymmetrical distribution (beta-PERT)
 
     distributionsCosts = [
@@ -73,7 +73,7 @@ elif model is 1:
         distribution_p   # p
     ]
 
-elif model is 2:
+elif modelNum is 2:
 # TCRE from gray plume , linear non-CO2
 
     distributionsCosts = [
@@ -83,7 +83,7 @@ elif model is 2:
         distribution_p   # p
     ]
 
-elif model is 3:
+elif modelNum is 3:
 # TCRE from gray plume , convex non-CO2
 
     distributionsCosts = [
@@ -95,7 +95,7 @@ elif model is 3:
         distribution_p   # p
     ]
 
-elif model is 4:
+elif modelNum is 4:
 # TCRE from Collins et al (2013) , linear non-CO2
 
     distributionsCosts = [

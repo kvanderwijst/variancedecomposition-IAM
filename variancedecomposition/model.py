@@ -18,7 +18,7 @@ import numpy as np
 ## 3: TCRE from gray plume + convex non-CO2 contributions
 ## 4: TCRE from Collins et al (2013) + linear non-CO2 contributions
 
-model = 0
+modelNum = 0
 
 
 
@@ -28,7 +28,7 @@ model = 0
 
 ## Carbon budget
 
-if model in [0, 1]:
+if modelNum in [0, 1]:
 # TCRE from pink plume
 
     def CO2asfunctionofTemperature (T, TCRE, T0, sigma_nonCO2):
@@ -37,18 +37,18 @@ if model in [0, 1]:
     def TemperatureasfunctionofCO2 (CO2, TCRE, T0, sigma_nonCO2):
         return T0 + TCRE * CO2 + sigma_nonCO2
 
-elif model in [2, 4]:
+elif modelNum in [2, 4]:
 # TCRE from gray plume or from Collins + linear non-CO2
 
     TCRE_nonCO2 = 0.17
     
     def CO2asfunctionofTemperature (T, TCRE, T0, sigma_nonCO2):
-        return (T - T0 - sigma_nonCO2) / (TCRE_CO2 + TCRE_nonCO2)
+        return (T - T0 - sigma_nonCO2) / np.maximum(0.001, TCRE_CO2 + TCRE_nonCO2)
     
     def TemperatureasfunctionofCO2 (CO2, TCRE_CO2, T0, sigma_nonCO2):
         return T0 + (TCRE_CO2 + TCRE_nonCO2) * CO2 + sigma_nonCO2
     
-elif model is 3:
+elif modelNum is 3:
 # TCRE from gray plume + convex non-CO2:
     
     forcingToTemp = 2 * 0.60126 # Twice the MAGICC coefficient
