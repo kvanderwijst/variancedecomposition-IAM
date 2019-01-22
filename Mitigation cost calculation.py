@@ -20,6 +20,11 @@ import plotly.plotly as py
 import plotly.graph_objs as go
 import plotly.tools as pyt
 
+import json_tricks
+def exportOutput(outp, name):
+    with open(name+'.json', 'w') as outfile:
+        json_tricks.dump(outp,outfile)
+
 
 ##################
 ##
@@ -64,8 +69,13 @@ pool.close()
 pool.join() 
 
 
+
+exportOutput({'Tvalues': Tvalues, 'results': result}, 'relativeVariancesModel%i' % model.modelNum)
+
+
 ## Process the results such that they are better readable
 processed = plot.processResults(result)
+
 
 # processed[0] bevat first-order relative variance voor elke parameter (kolom)
 # en voor elke temperatuur (rij)
@@ -116,4 +126,4 @@ fig = plot.cumulativeAreaChart(
     arrowshift=[0,18,0,-12,-15,0,0,15,-12,-35,-60, -65], 
     textcolor=['#FFF']*12
 )
-pyo.plot(fig, image='', filename='relativeVarianceCost', image_width=fig.layout.width, image_height=fig.layout.height, show_link=False)
+pyo.plot(fig, image='', filename='relativeVarianceCostModel%i.html' % model.modelNum, image_width=fig.layout.width, image_height=fig.layout.height, show_link=False)
