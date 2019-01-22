@@ -51,6 +51,7 @@ def sample_normal(num, mu, sigma):
 
 ######## Distribution for full mitigation cost model
 pStar = 0.24154
+distribution_p = lambda N: sample_betaPERT(N, 0, pStar, 1)
 
 if model is 0:
 # TCRE from pink plume, symmetrical distribution (Gaussian)
@@ -59,7 +60,7 @@ if model is 0:
         lambda N: sample_normal(N, 0.62, 0.12), # TCRE
         lambda N: sample_normal(N, 0.909, 0.15/2), # T2010
         lambda N: sample_normal(N, 0, .135),  # sigma_nonCO2
-        lambda N: sample_betaPERT(N, 0, pStar, 1)   # p
+        distribution_p   # p
     ]
 
 elif model is 1:
@@ -69,7 +70,7 @@ elif model is 1:
         lambda N: sample_betaPERT(N, 0.255, 0.62, 0.855), # TCRE
         lambda N: sample_normal(N, 0.909, 0.15/2), # T2010
         lambda N: sample_normal(N, 0, .135),  # sigma_nonCO2
-        lambda N: sample_betaPERT(N, 0, pStar, 1)   # p
+        distribution_p   # p
     ]
 
 elif model is 2:
@@ -79,7 +80,7 @@ elif model is 2:
         lambda N: sample_normal(N, 0.45, 0.1), # TCRE
         lambda N: sample_normal(N, 0.909, 0.15/2), # T2010
         lambda N: sample_normal(N, 0, .135),  # sigma_nonCO2
-        lambda N: sample_betaPERT(N, 0, pStar, 1)   # p
+        distribution_p   # p
     ]
 
 elif model is 3:
@@ -88,8 +89,10 @@ elif model is 3:
     distributionsCosts = [
         lambda N: sample_normal(N, 0.45, 0.1), # TCRE
         lambda N: sample_normal(N, 0.909, 0.15/2), # T2010
-        lambda N: sample_normal(N, 0, .227),  # sigma_nonCO2
-        lambda N: sample_betaPERT(N, 0, pStar, 1)   # p
+        lambda N: sample_normal(N, 0, .227),  # sigma_nonCO2 
+                    # is different from others, since it is still multiplied
+                    # by forcingToTemperature term
+        distribution_p   # p
     ]
 
 elif model is 4:
@@ -99,7 +102,7 @@ elif model is 4:
         lambda N: sample_normal(N, 0.45, 0.25), # TCRE
         lambda N: sample_normal(N, 0.909, 0.15/2), # T2010
         lambda N: sample_normal(N, 0, .135),  # sigma_nonCO2
-        lambda N: sample_betaPERT(N, 0, pStar, 1)   # p
+        distribution_p   # p
     ]
 
 
