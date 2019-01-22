@@ -50,7 +50,7 @@ def parallelTask(i):
 
 
 ## Define temperature values for which we want to calculate the carbon budget sensitivity
-Tvalues = np.linspace(1.0, 5, 50)
+Tvalues = np.linspace(1.5, 5, 50)
 
 
 ## Calculate the sensitivity for each temperature, in parallel

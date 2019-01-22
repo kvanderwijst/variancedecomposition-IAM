@@ -80,7 +80,7 @@ def cumulativeAreaChart (xvalues, yvalues, colors, names, arrowshift=None, textc
         barmode='stack',
         width=900,
         height=900,
-        xaxis=dict(title='Temperature change (°C)', range=[1,5]),
+        xaxis=dict(title='Temperature change (°C)', range=[1.5,5]),
         yaxis=dict(title='Rel. contribution to variance'),
         font = dict(size=13),
         margin=dict(r=225, t=30,l=60),
