@@ -1,6 +1,5 @@
 .svg
 .png
-*.ipynb
 *.png
 *.svg
 *.npy
@@ -25,3 +24,10 @@ forVisualisation.csv
 *.html
 *.nb
 *.json
+.ipynb_checkpoints/Calculations for paper-checkpoint.ipynb
+.ipynb_checkpoints/Sampling method-checkpoint.ipynb
+.ipynb_checkpoints/Sampling method-TCRE beta-PERT distributed-checkpoint.ipynb
+ConvexNonCO2/.ipynb_checkpoints/Sampling method - Convex non-CO2-checkpoint.ipynb
+ConvexNonCO2/Sampling method - Convex non-CO2.ipynb
+Sampling method-TCRE beta-PERT distributed.ipynb
+Sampling method.ipynb
