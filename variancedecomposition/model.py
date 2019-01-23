@@ -56,7 +56,7 @@ elif modelNum is 3:
     c = 0.0083
     
     def CO2asfunctionofTemperature (T, TCRE_CO2, T0, sigma_nonCO2):
-    	inSqrt = np.maximum(0.0, -4*c*forcingToTemp*(forcingToTemp*sigma_nonCO2 - T + T0) + (b*forcingToTemp + TCRE_CO2)**2)
+        inSqrt = np.maximum(0.0, -4*c*forcingToTemp*(forcingToTemp*sigma_nonCO2 - T + T0) + (b*forcingToTemp + TCRE_CO2)**2)
         return -(1.0/(2*c*forcingToTemp))*(b*forcingToTemp + TCRE_CO2 - np.sqrt(inSqrt))
     
     def TemperatureasfunctionofCO2 (CO2, TCRE_CO2, T0, sigma_nonCO2):
