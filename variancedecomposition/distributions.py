@@ -87,7 +87,7 @@ elif modelNum is 3:
 # TCRE from gray plume , convex non-CO2
 
     distributionsCosts = [
-        lambda N: sample_normal(N, 0.45, 0.1), # TCRE
+        lambda N: sample_normal(N, 0.45, 0.12), # TCRE
         lambda N: sample_normal(N, 0.909, 0.15/2), # T2010
         lambda N: sample_normal(N, 0, .227),  # sigma_nonCO2 
                     # is different from others, since it is still multiplied
