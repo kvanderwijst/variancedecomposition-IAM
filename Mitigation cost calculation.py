@@ -1,5 +1,3 @@
-# -*- coding: utf8 -*-
-
 ###################
 ##
 ## Calculate carbon budget sensitivity
@@ -15,10 +13,10 @@ import variancedecomposition.plot as plot
 import multiprocessing
 import tqdm
 
-import plotly.offline as pyo
-import plotly.plotly as py
-import plotly.graph_objs as go
-import plotly.tools as pyt
+# import plotly.offline as pyo
+# import plotly.plotly as py
+# import plotly.graph_objs as go
+# import plotly.tools as pyt
 
 import json_tricks
 def exportOutput(outp, name):
@@ -62,18 +60,20 @@ def update(outp):
     result[i] = output
     pbar.update();
 
-pool = multiprocessing.Pool(25)
+# pool = multiprocessing.Pool(1)
 for i in range(len(Tvalues)):
-    pool.apply_async(parallelTask, (i,), callback=update)
-pool.close()  
-pool.join() 
+    outp = parallelTask(i)
+    update(outp)
+    # pool.apply_async(parallelTask, (i,), callback=update)
+# pool.close()  
+# pool.join() 
 
 
 
-exportOutput({'Tvalues': Tvalues, 'results': result}, 'relativeVariancesModel%i' % model.modelNum)
+exportOutput({'Tvalues': Tvalues, 'results': result}, 'relativeVariancesModelNewest%i' % model.modelNum)
 
 
-## Process the results such that they are better readable
+# Process the results such that they are better readable
 processed = plot.processResults(result)
 
 

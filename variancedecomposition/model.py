@@ -12,13 +12,14 @@ import numpy as np
 
 #### DEFINE MODEL
 ##
-## 0: TCRE from pink plume, symmetrical distribution
-## 1: TCRE from pink plume, asymmetrical (Beta-PERT) distribution
-## 2: TCRE from gray plume + linear non-CO2 contributions
-## 3: TCRE from gray plume + convex non-CO2 contributions
-## 4: TCRE from Collins et al (2013) + linear non-CO2 contributions
+## 0: TCRE from pink plume, symmetrical distribution (#1 in paper)
+## 1: TCRE from pink plume, asymmetrical (Beta-PERT) distribution (#2 in paper)
+## 2: TCRE from gray plume + linear non-CO2 contributions (#3 in paper)
+## 3: TCRE from gray plume + convex non-CO2 contributions (#4 in paper)
+## 4: TCRE from Collins et al (2013) + linear non-CO2 contributions (#5 in paper)
+## 5: TCRE from pink plume, log-linear cost distribution (#XX in paper)
 
-modelNum = 0
+modelNum = 5
 
 
 
@@ -28,7 +29,7 @@ modelNum = 0
 
 ## Carbon budget
 
-if modelNum in [0, 1]:
+if modelNum in [0, 1, 5]:
 # TCRE from pink plume
 
     def CO2asfunctionofTemperature (T, TCRE, T0, sigma_nonCO2):
@@ -48,12 +49,12 @@ elif modelNum in [2, 4]:
     def TemperatureasfunctionofCO2 (CO2, TCRE_CO2, T0, sigma_nonCO2):
         return T0 + (TCRE_CO2 + TCRE_nonCO2) * CO2 + sigma_nonCO2
     
-elif modelNum is 3:
+elif modelNum in [3, 3.1]:
 # TCRE from gray plume + convex non-CO2:
     
     forcingToTemp = 2 * 0.60126 # Twice the MAGICC coefficient
-    b = 0.0849
-    c = 0.0083
+    b = 0.11456985
+    c = 0.00771118
     
     def CO2asfunctionofTemperature (T, TCRE_CO2, T0, sigma_nonCO2):
         inSqrt = np.maximum(0.0, -4*c*forcingToTemp*(forcingToTemp*sigma_nonCO2 - T + T0) + (b*forcingToTemp + TCRE_CO2)**2)
@@ -64,6 +65,7 @@ elif modelNum is 3:
 
 
 
+
 ## Mitigation cost functions
 
 def expfct(CO2, a, b):
@@ -71,19 +73,34 @@ def expfct(CO2, a, b):
     return np.where(CO2 < 5.5, value, 0)
 
 def fMax(CO2):
-    return expfct(CO2, 14.9766, 0.541945)
+    #return expfct(CO2, 14.9766, 0.541945)
+    #return expfct(CO2, 19.1522, 0.513221)
+    return expfct(CO2, 10.1636, 0.540518)
 
 def fMin(CO2):
-    return expfct(CO2, 0.886887, 3.47027)
+    #return expfct(CO2, 0.886887, 3.47027)
+    #return expfct(CO2, 1.33805, 2.38528)
+    return expfct(CO2, 1.60182, 2.10714)
 
-def f(CO2, p):
-    safe_CO2 = np.maximum(-3, CO2)
-    return fMin(safe_CO2) + (fMax(safe_CO2) - fMin(safe_CO2)) * p
+
+if modelNum == 5:
+    def f(CO2, eps):
+       a = -0.784016
+       b = 0.777523
+       safe_CO2 = np.maximum(-3, CO2)
+       value = np.exp(a * safe_CO2 + b + eps)-0.05
+       return np.where(CO2 < 5.5, value, 0)
+
+else:
+    def f(CO2, p):
+        safe_CO2 = np.maximum(-3, CO2)
+        return fMin(safe_CO2) + (fMax(safe_CO2) - fMin(safe_CO2)) * p
+
 
 # Translate indexed costs to USD
 def toRealCosts(indexedCosts):
-    return indexedCosts * 33.94462214705881 ## Is defined more clearly in thesis
-
+    # Median of consumption loss values with CO2 betwee 950 and 1550 GtCO2, costs in trillion USD
+    return indexedCosts * 23.2054885
 
 
 
