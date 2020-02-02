@@ -19,7 +19,7 @@ import numpy as np
 ## 4: TCRE from Collins et al (2013) + linear non-CO2 contributions (#5 in paper)
 ## 5: TCRE from pink plume, log-linear cost distribution (#XX in paper)
 
-modelNum = 5
+modelNum = 0
 
 
 
